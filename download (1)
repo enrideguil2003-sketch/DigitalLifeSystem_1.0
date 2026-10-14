@@ -1,0 +1,24 @@
+# Local IDE and machine settings
+local.properties
+.idea/
+*.iml
+.vscode/
+
+# Gradle and Kotlin build caches/outputs
+.gradle/
+.kotlin/
+**/build/
+**/out/
+
+# Generated application packages
+*.apk
+*.aab
+*.dex
+*.class
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+*.log
