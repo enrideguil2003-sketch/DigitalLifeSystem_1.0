@@ -7,7 +7,6 @@ plugins {
 }
 
 kotlin {
-    jvm()
     androidLibrary { namespace = "com.digitallifesystem.shared"; compileSdk = 37; minSdk = 26; androidResources.enable = true }
     sourceSets {
         commonMain.dependencies {
@@ -20,7 +19,6 @@ kotlin {
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
             implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
         }
-        jvmMain.dependencies { implementation(compose.desktop.currentOs) }
     }
 }
 
