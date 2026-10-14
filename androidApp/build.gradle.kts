@@ -17,8 +17,8 @@ android {
         applicationId = "com.digitallifesystem"
         minSdk = 26
         targetSdk = 37
-        versionCode = 9
-        versionName = "1.7.0"
+        versionCode = 11
+        versionName = "2.0.0"
     }
     if (dlsKeystore.exists()) {
         signingConfigs {
