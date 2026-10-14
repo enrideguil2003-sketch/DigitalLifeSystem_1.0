@@ -392,6 +392,10 @@ private class LifeViewModel {
             users["REG1"] = UserData(password = "123", role = "Пользователь", display_name = "REG1")
             changed = true
         }
+        if (users.keys.none { it.equals("LUCKY", ignoreCase = true) }) {
+            users["LUCKY"] = UserData(password = "DEKSTER555", role = "Пользователь", display_name = "LUCKY")
+            changed = true
+        }
         if (changed) enqueueSave(users.mapValues { it.value.snapshotForSave() })
     }
     fun initialize(loadedUsers: MutableMap<String, UserData>, savedUsername: String?): Boolean {
@@ -2017,41 +2021,27 @@ private fun OutlineIconButton(kind:IconKind,count:String,onClick:()->Unit){
     val controlSize = if(kind==IconKind.GEAR) 36.dp else 47.dp
     Box(Modifier.size(controlSize),contentAlignment=Alignment.Center){
         IconButton(onClick=onClick,modifier=Modifier.size(controlSize)){
-            Canvas(Modifier.size(if(kind==IconKind.GEAR) 23.dp else 43.875.dp)){
-                val stroke=2.1f
-                val c=androidx.compose.ui.geometry.Offset(size.width/2f,size.height/2f)
-                when(kind){
-                    IconKind.BELL -> {
-                        val p=Path().apply{
-                            moveTo(size.width*0.24f,size.height*0.72f)
-                            lineTo(size.width*0.76f,size.height*0.72f)
-                            lineTo(size.width*0.69f,size.height*0.62f)
-                            lineTo(size.width*0.69f,size.height*0.42f)
-                            cubicTo(size.width*0.69f,size.height*0.20f,size.width*0.31f,size.height*0.20f,size.width*0.31f,size.height*0.42f)
-                            lineTo(size.width*0.31f,size.height*0.62f)
-                            close()
-                        }
-                        drawPath(p,color=Green,style=Stroke(cap=StrokeCap.Round,join=StrokeJoin.Round,width=stroke))
-                        drawCircle(Green,size.minDimension*0.055f,center=androidx.compose.ui.geometry.Offset(size.width*0.5f,size.height*0.80f))
+            if (kind == IconKind.GEAR) {
+                Image(
+                    painter = painterResource(Res.drawable.settings),
+                    contentDescription = "Настройки",
+                    modifier = Modifier.size(23.dp),
+                    contentScale = ContentScale.Fit
+                )
+            } else {
+                Canvas(Modifier.size(43.875.dp)) {
+                    val stroke = 2.1f
+                    val p = Path().apply {
+                        moveTo(size.width*0.24f,size.height*0.72f)
+                        lineTo(size.width*0.76f,size.height*0.72f)
+                        lineTo(size.width*0.69f,size.height*0.62f)
+                        lineTo(size.width*0.69f,size.height*0.42f)
+                        cubicTo(size.width*0.69f,size.height*0.20f,size.width*0.31f,size.height*0.20f,size.width*0.31f,size.height*0.42f)
+                        lineTo(size.width*0.31f,size.height*0.62f)
+                        close()
                     }
-                    IconKind.GEAR -> {
-                        val outerR=size.minDimension*0.39f
-                        val innerR=size.minDimension*0.17f
-                        val toothInner=size.minDimension*0.33f
-                        val toothOuter=size.minDimension*0.43f
-                        val path=Path()
-                        for(i in 0 until 16){
-                            val a=(-90.0 + i*22.5) * (kotlin.math.PI/180.0)
-                            val r=when(i%4){0,1->toothOuter;2,3->toothInner;else->toothInner}
-                            val x=c.x+kotlin.math.cos(a).toFloat()*r
-                            val y=c.y+kotlin.math.sin(a).toFloat()*r
-                            if(i==0)path.moveTo(x,y) else path.lineTo(x,y)
-                        }
-                        path.close()
-                        drawPath(path,color=Green,style=Stroke(cap=StrokeCap.Round,join=StrokeJoin.Round,width=stroke))
-                        drawCircle(Green,outerR*0.60f,center=c,style=Stroke(width=stroke))
-                        drawCircle(Green,innerR,center=c,style=Stroke(width=stroke))
-                    }
+                    drawPath(p,color=Green,style=Stroke(cap=StrokeCap.Round,join=StrokeJoin.Round,width=stroke))
+                    drawCircle(Green,size.minDimension*0.055f,center=Offset(size.width*0.5f,size.height*0.80f))
                 }
             }
         }
