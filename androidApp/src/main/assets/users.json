@@ -84,5 +84,10 @@
         "training_segment_overrides": {},
         "training_start_date": "2026-10-05",
         "app_data_version": 20
+    },
+    "LUCKY": {
+        "password": "DEKSTER555",
+        "role": "Пользователь",
+        "display_name": "LUCKY"
     }
 }
